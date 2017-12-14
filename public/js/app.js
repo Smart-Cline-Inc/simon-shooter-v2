@@ -6,21 +6,6 @@ const renderer = new THREE.WebGLRenderer({
   antialias: false
 });
 
-// renderer.setSize(width, height);
-//
-//
-//
-// this.setSize = function ( width, height ) {
-//
-//     _canvas.width = width * this.devicePixelRatio;
-//     _canvas.height = height * this.devicePixelRatio;
-//
-//     _canvas.style.width = width + 'px';
-//     _canvas.style.height = height + 'px';
-//
-//     this.setViewport( 0, 0, _canvas.width, _canvas.height );
-//
-// };
 var width = window.innerWidth
 var height = window.innerWidth/16*9
 console.log(width);
