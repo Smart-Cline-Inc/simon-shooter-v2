@@ -14,8 +14,6 @@ renderer.setSize(width, height);
 window.addEventListener('resize', () => {
   var resizeWidth = window.innerWidth
   var resizeHeight = resizeWidth/16*9
-  console.log(resizeWidth);
-  console.log(resizeHeight);
   renderer.setSize(resizeWidth, resizeHeight)
 })
 
@@ -23,16 +21,16 @@ const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 3000);
 
 const scene = new THREE.Scene();
 
-const light = new THREE.AmbientLight(0xaaffff, 0.5);
+const light = new THREE.AmbientLight(0xffffff, 0.5);
 light.position.x = -500;
 light.position.y = 50;
 light.position.z = 1000;
 scene.add(light);
 
-const light2 = new THREE.PointLight(0xffffff, 0.5);
-light2.position.x = 500;
+const light2 = new THREE.PointLight(0xffffff, 0.7);
+light2.position.x = -500;
 light2.position.y = 50;
-light2.position.z = 1000;
+light2.position.z = 0;
 scene.add(light2);
 
 let objects = [];
@@ -42,10 +40,10 @@ const sphere2 = new THREE.SphereGeometry(75, 100, 100);
 const sphere3 = new THREE.SphereGeometry(75, 100, 100);
 const sphere4 = new THREE.SphereGeometry(75, 100, 100);
 const shooter = new THREE.ConeGeometry(20, 100, 3);
-const shot = new THREE.TetrahedronGeometry(5, 0);
+const shot = new THREE.IcosahedronGeometry(1, 0);
 
 const material1 = new THREE.MeshLambertMaterial({
-  color: 0x00FF00
+  color: 0x00CC00
 });
 const material2 = new THREE.MeshLambertMaterial({
   color: 0x0000FF
@@ -54,13 +52,13 @@ const material3 = new THREE.MeshLambertMaterial({
   color: 0xFF0000
 });
 const material4 = new THREE.MeshLambertMaterial({
-  color: 0xFFFF00
+  color: 0xCCCC00
 });
 const material5 = new THREE.MeshLambertMaterial({
   color: 0xFF00FF
 });
 const material6 = new THREE.MeshLambertMaterial({
-  color: 0xFFEEDD
+  color: 0xFF5544
 });
 
 const mesh1 = new THREE.Mesh(sphere1, material1);
@@ -185,14 +183,23 @@ function onMouseDown(event) {
   if (intersects.length > 0) {
     let spherePosition = intersects[0].object.position.x;
     addSphereToArray(spherePosition);
-    intersects[0].object.material.color.setHex(0xffffff);
+    function light() {
+      let shine = intersects[0].object.material.color.setHex(0xFF8944);
+      return shine
+    }
+    setTimeout(light, 250)
     setTimeout(impact, 275);
-    setTimeout(revertBack, 300);
+    setTimeout(revertBack, 575);
     shoot(intersects);
     shotSound();
     compareArrays(spherePosition);
   };
 };
+
+function clickLight() {
+  intersects[0].object.material.color.setHex(0xFF69B4);
+  setTimeout(revertBack, 300);
+}
 
 function addSphereToArray(spherePos) {
   switch (spherePos) {
@@ -253,6 +260,14 @@ function shoot(intersects) {
   var tween = new TWEEN.Tween(mesh6.position)
     .to(target, 150)
     .start()
+  var tween2 = new TWEEN.Tween(mesh6.scale)
+    .to({
+      x: 40,
+      y: 40,
+      z: 40
+    }, 150)
+    .start()
+
 };
 
 function postScore(num) {
@@ -278,6 +293,9 @@ function animate() {
   mesh6.position.x = 0;
   mesh6.position.y = -65;
   mesh6.position.z = -500;
+  mesh6.scale.x = 0.1;
+  mesh6.scale.y = 0.1;
+  mesh6.scale.z = 0.1;
 };
 
 

@@ -30,22 +30,22 @@ function chooseSphere(i, difficulty, click) {
 }
 
 function lighting1() {
-  var w = material1.color.setHex(0xFFFFFF)
+  var w = material1.color.setHex(0xFF69B4)
   return w
 }
 
 function lighting2() {
-  var x = material2.color.setHex(0xFFFFFF)
+  var x = material2.color.setHex(0xFF69B4)
   return x
 }
 
 function lighting3() {
-  var y = material3.color.setHex(0xFFFFFF)
+  var y = material3.color.setHex(0xFF69B4)
   return y
 }
 
 function lighting4() {
-  var z = material4.color.setHex(0xFFFFFF)
+  var z = material4.color.setHex(0xFF69B4)
   return z
 }
 
