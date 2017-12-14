@@ -1,0 +1,40 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+  text-shadow: 3px 3px 10px grey;
+}
+
+h1 {
+  font-size: 6vw;
+  color: #00FF00;
+  margin: 1vw 0 2vw 0;
+  text-align: center;
+}
+
+h2 {
+  font-size: 3.5vw;
+  color: red;
+  margin: 1vw 0 2vw 0;
+}
+
+p {
+  margin-top: 0;
+  font-size:1.4vw;
+}
+
+a {
+  font-size: 3vw;
+  margin-top: 1vw;
+}
+
+.scores {
+  width: 50%;
+  margin-left: 25%;
+}
+
+.score {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
