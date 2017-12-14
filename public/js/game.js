@@ -5,28 +5,48 @@ function pickRandomSphere() {
   playerChoiceArr = []
 }
 
-function lightUpSphere(difficulty) {
+function lightUpSphere(difficulty, click) {
   pickRandomSphere()
   for (i=0; i < arr.length; i++) {
-    setTimeout(chooseSphere, i * 1000 - difficulty * i * 75, i, difficulty)
+    setTimeout(chooseSphere, i * 1000 - difficulty * i * 40, i, difficulty, click)
   }
 }
 
-function chooseSphere(i, difficulty) {
+function chooseSphere(i, difficulty, click) {
   if (arr[i] === 1) {
-    material1.color.setHex(0xFFFFFF);
+    setTimeout(lighting1, 150)
     getTone(-500)
   } else if (arr[i] === 2) {
-    material2.color.setHex(0xFFFFFF);
+    setTimeout(lighting2, 150)
     getTone(-175)
   } else if (arr[i] === 3) {
-    material3.color.setHex(0xFFFFFF);
+    setTimeout(lighting3, 150)
     getTone(175)
   } else if (arr[i] === 4) {
-    material4.color.setHex(0xFFFFFF);
+    setTimeout(lighting4, 150)
     getTone(500)
   }
-  setTimeout(revertBack, 800 - difficulty * 60)
+  setTimeout(revertBack, 400 - difficulty * 5)
+}
+
+function lighting1() {
+  var w = material1.color.setHex(0xFFFFFF)
+  return w
+}
+
+function lighting2() {
+  var x = material2.color.setHex(0xFFFFFF)
+  return x
+}
+
+function lighting3() {
+  var y = material3.color.setHex(0xFFFFFF)
+  return y
+}
+
+function lighting4() {
+  var z = material4.color.setHex(0xFFFFFF)
+  return z
 }
 
 function revertBack() {

@@ -1,15 +1,12 @@
 const body = document.querySelector('body');
 var canvas = document.getElementById('game-display')
-// console.log(canvas.width);
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
   antialias: false
 });
 
 var width = window.innerWidth
-var height = window.innerWidth/16*9
-console.log(width);
-console.log(height);
+var height = width/16*9
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor(0x000000);
 renderer.setSize(width, height);
@@ -17,8 +14,6 @@ renderer.setSize(width, height);
 window.addEventListener('resize', () => {
   var resizeWidth = window.innerWidth
   var resizeHeight = resizeWidth/16*9
-  // var resizeWidth = window.innerWidth
-  // var resizeHeight = window.innerWidth/16*9
   console.log(resizeWidth);
   console.log(resizeHeight);
   renderer.setSize(resizeWidth, resizeHeight)
@@ -236,7 +231,7 @@ function compareArrays(spherePosition) {
 			scoreElement.innerText = 'Score: ' + score;
 			setTimeout(getTone, 275, spherePosition);
 			setTimeout(incrementRound, 1500)
-			setTimeout(lightUpSphere, 1500, round-2);
+			setTimeout(lightUpSphere, 1500, round-2, 275);
 			break;
 		};
 	};
