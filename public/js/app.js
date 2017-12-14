@@ -29,9 +29,14 @@ scene.add(light);
 
 const light2 = new THREE.PointLight(0xffffff, 0.7);
 light2.position.x = -500;
-light2.position.y = 50;
+light2.position.y = 1000;
 light2.position.z = 0;
 scene.add(light2);
+
+const light3 = new THREE.AmbientLight(0xffffff, 1);
+light3.position.x = -1000
+light3.position.y = -1000
+light3.position.z = -1000
 
 let objects = [];
 
@@ -184,10 +189,10 @@ function onMouseDown(event) {
     let spherePosition = intersects[0].object.position.x;
     addSphereToArray(spherePosition);
     function light() {
-      let shine = intersects[0].object.material.color.setHex(0xFF8944);
+      let shine = intersects[0].object.material.color.setHex(0xFFFFFF);
       return shine
     }
-    setTimeout(light, 250)
+    setTimeout(light, 275)
     setTimeout(impact, 275);
     setTimeout(revertBack, 575);
     shoot(intersects);
