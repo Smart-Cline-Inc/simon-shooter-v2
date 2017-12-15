@@ -60,13 +60,13 @@ const material5 = new THREE.MeshLambertMaterial({
   color: 0xFF00FF
 });
 var loader = new THREE.TextureLoader();
-var shotImage = loader.load('/js/shot.jpg')
+var shotImage = loader.load('/js/shot.png')
 shotImage.wrapS = shotImage.wrapT = THREE.RepeatWrapping;
 shotImage.offset.set( 0, 0 );
 shotImage.repeat.set( 3, 2 );
 console.log('shot image');
 console.log(shotImage);
-const material6 = new THREE.MeshBasicMaterial({map: shotImage})
+const material6 = new THREE.MeshBasicMaterial({map: shotImage, transparent: true})
 
 const mesh1 = new THREE.Mesh(sphere1, material1);
 const mesh2 = new THREE.Mesh(sphere2, material2);
@@ -155,7 +155,7 @@ loader.load( 'js/ps2p.json', function ( font ) {
         var mesh8 = new THREE.Mesh(simonShooter, material7);
         mesh8.position.x = -40;
         mesh8.position.y = -150;
-        mesh8.position.z = -1000;
+        mesh8.position.z = -850;
         mesh8.rotation.x = -06;
         mesh8.rotation.y = 1.55;
         mesh8.rotation.z = 0;
@@ -296,20 +296,20 @@ function shoot(intersects) {
   let posY = intersects["0"].point.y;
   let posZ = intersects["0"].point.z;
   let target = {
-    x: posX,
-    y: posY*0.9,
-    z: posZ*1.1
+    x: posX*1.03,
+    y: posY,
+    z: posZ*1.08
   };
   let size = {
-    x: 60,
-    y: 60,
-    z: 60
+    x: 40,
+    y: 40,
+    z: 40
   }
   var tween = new TWEEN.Tween(mesh6.position)
-    .to(target, 275)
+    .to(target, 150)
     .start()
   var tween2 = new TWEEN.Tween(mesh6.scale)
-    .to(size, 275)
+    .to(size, 150)
     .start()
   // var tween3 = new TWEEN.Tween(mesh6.rotation)
   //   .to()
@@ -327,18 +327,29 @@ function shoot(intersects) {
     }, 275)
     .start()
     setTimeout(revertLight, 450)
-    setTimeout(revertShot, 320)
+    setTimeout(revertShot, 500)
+    setTimeout(explode, 150)
+    function explode() {
+      var tween6 = new TWEEN.Tween(mesh6.scale)
+      .to({
+        x: 200,
+        y: 200,
+        z: 200
+      }, 320)
+      .start()
+    }
 };
 
+
 function revertLight() {
-  var tween6 = new TWEEN.Tween(light2.position)
+  var tween7 = new TWEEN.Tween(light2.position)
     .to({
       x: 0,
       y: -1500,
       z: 1500
     }, 40)
     .start()
-  var tween7 = new TWEEN.Tween(light2)
+  var tween8 = new TWEEN.Tween(light2)
     .to({
       intensity: 0.75
     }, 40)
