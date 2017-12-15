@@ -21,12 +21,6 @@ const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 3000);
 
 const scene = new THREE.Scene();
 
-// const light1 = new THREE.AmbientLight(0xffffff, 1);
-// light1.position.x = 0;
-// light1.position.y = 1500;
-// light1.position.z = -1500;
-// scene.add(light1);
-
 const light2 = new THREE.PointLight(0xffffff, 0.75);
 light2.position.x = 0;
 light2.position.y = -1500;
@@ -123,27 +117,58 @@ objects.push(mesh4);
 var loader = new THREE.FontLoader()
 loader.load( 'js/ps2p.json', function ( font ) {
 
-	var simonShooter = new THREE.TextGeometry( 'Simon     Shooter', {
-		font: font,
-		size: 40,
-		height: 40,
-		curveSegments: 12
-	} );
-	const material7 = new THREE.MeshLambertMaterial({color: 0x00FF00});
+  var simonShooter = new THREE.TextGeometry( 'Simon     Shooter', {
+    font: font,
+    size: 40,
+    height: 40,
+    curveSegments: 12
+  } );
 
-	const mesh7 = new THREE.Mesh(simonShooter, material7);
-	mesh7.position.x = -440;
-	mesh7.position.y = -150;
-	mesh7.position.z = -1300;
-	mesh7.rotation.x = -06;
-	mesh7.rotation.y = 0;
-	mesh7.rotation.z = 0;
-	scene.add(mesh7);
+  simonShooter.applyMatrix(new THREE.Matrix4().makeRotationY(-Math.PI / 2));
+  simonShooter.applyMatrix(new THREE.Matrix4().setPosition(new THREE.Vector3(0, 0, -400)));
 
-	// var quaternion = new THREE.Quaternion();
-	// quaternion.setFromAxisAngle(axis, 0.9);
-	// mesh7.position.applyQuaternion(quaternion);
+  const material7 = new THREE.MeshLambertMaterial({color: 0x00FF00});
+
+  const mesh7 = new THREE.Mesh(simonShooter, material7);
+  mesh7.position.x = -50;
+  mesh7.position.y = -150;
+  mesh7.position.z = -1300;
+  mesh7.rotation.x = -06;
+  mesh7.rotation.y = 1.55;
+  mesh7.rotation.z = 0;
+
+  scene.add(mesh7);
+
+  for (var i = 0; i < 160; i++) {
+    setTimeout(rotateTitle, i*20+i*10);
+  }
+  function rotateTitle() {
+    mesh7.rotation.y += 0.04
+    mesh7.scale.x += 0.003
+    mesh7.scale.y += 0.003
+    mesh7.scale.z += 0.003
+    document.addEventListener('keyup', removeTitle, false);
+    function removeTitle(event) {
+      event.preventDefault();
+      if (event.code == 'Space') {
+        scene.remove(mesh7)
+        var mesh8 = new THREE.Mesh(simonShooter, material7);
+        mesh8.position.x = -40;
+        mesh8.position.y = -150;
+        mesh8.position.z = -1000;
+        mesh8.rotation.x = -06;
+        mesh8.rotation.y = 1.55;
+        mesh8.rotation.z = 0;
+
+        scene.add(mesh8);
+      };
+
+    }
+  }
+
 });
+
+
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -311,12 +336,12 @@ function revertLight() {
       x: 0,
       y: -1500,
       z: 1500
-    }, 100)
+    }, 40)
     .start()
   var tween7 = new TWEEN.Tween(light2)
     .to({
       intensity: 0.75
-    }, 100)
+    }, 40)
     .start()
 }
 
@@ -346,9 +371,10 @@ function postScore(num) {
 
 
 function animate() {
+
   TWEEN.update();
-	requestAnimationFrame(animate);
-	renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
   mesh6.rotation.x -= 0.1
   mesh6.rotation.y -= 0.25
   mesh6.rotation.z -= 0.05
