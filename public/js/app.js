@@ -8,7 +8,7 @@ const renderer = new THREE.WebGLRenderer({
 var width = window.innerWidth
 var height = width/16*9
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setClearColor(0x000000);
+renderer.setClearColor(0x6D6D6D, 0.3);
 renderer.setSize(width, height);
 
 window.addEventListener('resize', () => {
@@ -21,22 +21,25 @@ const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 3000);
 
 const scene = new THREE.Scene();
 
-const light = new THREE.AmbientLight(0xffffff, 0.5);
-light.position.x = -500;
-light.position.y = 50;
-light.position.z = 1000;
-scene.add(light);
+// const light1 = new THREE.AmbientLight(0xffffff, 1);
+// light1.position.x = 0;
+// light1.position.y = 1500;
+// light1.position.z = -1500;
+// scene.add(light1);
 
-const light2 = new THREE.PointLight(0xffffff, 0.7);
-light2.position.x = -500;
-light2.position.y = 1000;
-light2.position.z = 0;
-scene.add(light2);
+const light2 = new THREE.PointLight(0xffffff, 0.9);
+light2.position.x = 0;
+light2.position.y = -1500;
+light2.position.z = 1500;
+scene.add(light2)
 
-const light3 = new THREE.AmbientLight(0xffffff, 1);
-light3.position.x = -1000
-light3.position.y = -1000
-light3.position.z = -1000
+const light3 = new THREE.AmbientLight(0xffffff, 0.2);
+light3.position.x = 0
+light3.position.y = 0
+light3.position.z = 0
+scene.add(light3)
+
+
 
 let objects = [];
 
@@ -48,7 +51,7 @@ const shooter = new THREE.ConeGeometry(20, 100, 3);
 const shot = new THREE.IcosahedronGeometry(1, 0);
 
 const material1 = new THREE.MeshLambertMaterial({
-  color: 0x00CC00
+  color: 0x00BB00
 });
 const material2 = new THREE.MeshLambertMaterial({
   color: 0x0000FF
@@ -57,7 +60,7 @@ const material3 = new THREE.MeshLambertMaterial({
   color: 0xFF0000
 });
 const material4 = new THREE.MeshLambertMaterial({
-  color: 0xCCCC00
+  color: 0xBBBB00
 });
 const material5 = new THREE.MeshLambertMaterial({
   color: 0xFF00FF
@@ -65,6 +68,11 @@ const material5 = new THREE.MeshLambertMaterial({
 const material6 = new THREE.MeshLambertMaterial({
   color: 0xFF5544
 });
+
+// var texture = new THREE.TextureLoader().load( "textures/water.jpg" );
+// texture.wrapS = THREE.RepeatWrapping;
+// texture.wrapT = THREE.RepeatWrapping;
+// texture.repeat.set( 4, 4 );
 
 const mesh1 = new THREE.Mesh(sphere1, material1);
 const mesh2 = new THREE.Mesh(sphere2, material2);
@@ -188,11 +196,7 @@ function onMouseDown(event) {
   if (intersects.length > 0) {
     let spherePosition = intersects[0].object.position.x;
     addSphereToArray(spherePosition);
-    function light() {
-      let shine = intersects[0].object.material.color.setHex(0xFFFFFF);
-      return shine
-    }
-    setTimeout(light, 275)
+    setTimeout(light, 275, intersects)
     setTimeout(impact, 275);
     setTimeout(revertBack, 575);
     shoot(intersects);
@@ -200,6 +204,11 @@ function onMouseDown(event) {
     compareArrays(spherePosition);
   };
 };
+
+function light(intersects) {
+  let shine = intersects[0].object.material.color.setHex(0xFF69B4);
+  return shine
+}
 
 function clickLight() {
   intersects[0].object.material.color.setHex(0xFF69B4);

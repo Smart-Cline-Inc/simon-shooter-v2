@@ -5,12 +5,12 @@ body {
 }
 
 canvas {
-  width: 100%;
+  border-radius: 2vw;
   /* height: 56.25%; */
   /* background: black; */
-  /* position: absolute;
+  position: absolute;
   top: 0;
-  left: 0; */
+  left: 0;
 }
 
 a {
@@ -49,9 +49,9 @@ p {
   background-image: radial-gradient(circle, black, darkgreen);
   border-radius: 0.5vw;
   border: .13vw solid;
-  border-color: green lime lime green;
+  border-color: lime green green lime;
   width: 25vw;
-  padding: 0.25vw;
+  padding: 0.65vw 0.5vw 0.5vw 0.5vw;
 }
 
 .round {

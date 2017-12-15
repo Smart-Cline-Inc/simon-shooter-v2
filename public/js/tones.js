@@ -3,46 +3,64 @@ var frequency = 0
 
 function getTone(tone) {
   if (tone == (-500)) {
-    frequency = 98*2
+    frequency = 196/2
     playTone(frequency)
   } else if (tone == (-175 )) {
-    frequency = 116.54*2
+    frequency = 247/2
     playTone(frequency)
   } else if (tone == 175) {
-    frequency = 146.83*2
+    frequency = 293.66/2
     playTone(frequency)
   } else {
-    frequency = 196*2
+    frequency = 392/2
     playTone(frequency)
   }
 }
 
 function playTone(frequency) {
-  let time = audioCtx.currentTime
-  let gainNode = audioCtx.createGain()
-  gainNode.gain.value = 0
-  gainNode.connect(audioCtx.destination)
+  for (var i = 0; i < 2; i++) {
 
-  let oscillator = audioCtx.createOscillator()
-  oscillator.connect(gainNode)
-  oscillator.type = "sawtooth"
-  oscillator.attackTime = 0.01
-  oscillator.releaseTime = 0.39
+    let time = audioCtx.currentTime
+    let gainNode = audioCtx.createGain()
+    gainNode.gain.value = 0.5
+    gainNode.connect(audioCtx.destination)
 
-  oscillator.frequency.value = frequency
+    let oscillator = audioCtx.createOscillator()
+    oscillator.connect(gainNode)
+    oscillator.type = "sawtooth"
+    oscillator.attackTime = 0.01
+    oscillator.releaseTime = 0.39
 
-  // make a sound
-  oscillator.start();
-  // attack
-  gainNode.gain.linearRampToValueAtTime(1.0, time + 0.05);
-  // decay
-  gainNode.gain.exponentialRampToValueAtTime(0.2, time + 0.1);
-  // sustain
-  gainNode.gain.linearRampToValueAtTime(1.0, time + 0.2);
-  // release
-  gainNode.gain.exponentialRampToValueAtTime(0.2, time + 0.2);
-  // stop
-  oscillator.stop(time + 0.3)
+    if (i == 1) {
+      oscillator.frequency.value = frequency
+    }
+    oscillator.frequency.value = frequency * 2 + frequency * 0.05
+    let dip = frequency - frequency*.1
+    let dip2 = frequency*2 - frequency*0.01
+
+    // make a sound
+    oscillator.start();
+    // attack
+    gainNode.gain.linearRampToValueAtTime(0.5, time + 0.05);
+    if (i == 0) {
+    oscillator.frequency.linearRampToValueAtTime(dip, time + 0.05)
+    } else {
+      // oscillator.frequency.linearRampToValueAtTime(dip2, time + 0.05)
+    }
+    // decay
+    gainNode.gain.exponentialRampToValueAtTime(0.1, time + 0.1);
+    if (i == 0) {
+      oscillator.frequency.linearRampToValueAtTime(frequency, time + 0.1)
+    } else {
+      oscillator.frequency.linearRampToValueAtTime(frequency*2, time + 0.1)
+    }
+    // sustain
+    gainNode.gain.linearRampToValueAtTime(0.5, time + 0.2);
+    // release
+    gainNode.gain.exponentialRampToValueAtTime(0.1, time + 0.2);
+    // stop
+    oscillator.stop(time + 0.2)
+  }
 }
 
 function shotSound() {
@@ -65,11 +83,11 @@ function impact() {
   for (var i = 0; i < 10; i++) {
     let time = audioCtx.currentTime
     let gainNode = audioCtx.createGain()
-    gainNode.gain.value = 0.5
+    gainNode.gain.value = 0.1
     gainNode.connect(audioCtx.destination)
     let oscillator = audioCtx.createOscillator()
     oscillator.connect(gainNode)
-    oscillator.type = "sawtooth"
+    oscillator.type = "square"
     oscillator.attackTime = 0.01
     oscillator.releaseTime = 0.39
     oscillator.frequency.value = 49
@@ -82,7 +100,7 @@ function impact() {
 function loserSound() {
   let time = audioCtx.currentTime
   let gainNode = audioCtx.createGain()
-  gainNode.gain.value = 0.8
+  gainNode.gain.value = 0.4
   gainNode.connect(audioCtx.destination)
   let oscillator = audioCtx.createOscillator()
   oscillator.connect(gainNode)
