@@ -27,7 +27,7 @@ const scene = new THREE.Scene();
 // light1.position.z = -1500;
 // scene.add(light1);
 
-const light2 = new THREE.PointLight(0xffffff, 0.9);
+const light2 = new THREE.PointLight(0xffffff, 0.75);
 light2.position.x = 0;
 light2.position.y = -1500;
 light2.position.z = 1500;
@@ -66,13 +66,8 @@ const material5 = new THREE.MeshLambertMaterial({
   color: 0xFF00FF
 });
 const material6 = new THREE.MeshLambertMaterial({
-  color: 0xFF5544
+  color: 0xFF55FF
 });
-
-// var texture = new THREE.TextureLoader().load( "textures/water.jpg" );
-// texture.wrapS = THREE.RepeatWrapping;
-// texture.wrapT = THREE.RepeatWrapping;
-// texture.repeat.set( 4, 4 );
 
 const mesh1 = new THREE.Mesh(sphere1, material1);
 const mesh2 = new THREE.Mesh(sphere2, material2);
@@ -103,6 +98,10 @@ mesh5.position.z = -500;
 mesh5.rotation.x = 75;
 mesh5.rotation.y = 0;
 mesh5.rotation.z = 0;
+
+mesh6.position.x = 0;
+mesh6.position.y = -65;
+mesh6.position.z = -500;
 
 scene.add(mesh1);
 scene.add(mesh2);
@@ -206,7 +205,7 @@ function onMouseDown(event) {
 };
 
 function light(intersects) {
-  let shine = intersects[0].object.material.color.setHex(0xFF69B4);
+  let shine = intersects[0].object.material.color.setHex(0xFFFFFF);
   return shine
 }
 
@@ -271,18 +270,56 @@ function shoot(intersects) {
     y: posY,
     z: posZ
   };
+  let size = {
+    x: 40,
+    y: 40,
+    z: 40
+  }
   var tween = new TWEEN.Tween(mesh6.position)
-    .to(target, 150)
+    .to(target, 275)
     .start()
   var tween2 = new TWEEN.Tween(mesh6.scale)
-    .to({
-      x: 40,
-      y: 40,
-      z: 40
-    }, 150)
+    .to(size, 275)
     .start()
-
+  var tween3 = new TWEEN.Tween(light2.position)
+    .to({
+      x: posX*1.03,
+      y: posY*1.02,
+      z: (posZ + 100)
+    }, 275)
+    .start()
+  var tween4 = new TWEEN.Tween(light2)
+    .to({
+      intensity: 1
+    }, 275)
+    .start()
+    setTimeout(revertLight, 450)
+    setTimeout(revertShot, 340)
 };
+
+function revertLight() {
+  var tween5 = new TWEEN.Tween(light2.position)
+    .to({
+      x: 0,
+      y: -1500,
+      z: 1500
+    }, 100)
+    .start()
+  var tween6 = new TWEEN.Tween(light2)
+    .to({
+      intensity: 0.75
+    }, 100)
+    .start()
+}
+
+function revertShot() {
+  mesh6.scale.x = 0.1;
+  mesh6.scale.y = 0.1;
+  mesh6.scale.z = 0.1;
+  mesh6.position.x = 0;
+  mesh6.position.y = -65;
+  mesh6.position.z = -500;
+}
 
 function postScore(num) {
   var gamerName = prompt("Please enter your name to save your score!");
@@ -304,13 +341,8 @@ function animate() {
   TWEEN.update();
 	requestAnimationFrame(animate);
 	renderer.render(scene, camera);
-  mesh6.position.x = 0;
-  mesh6.position.y = -65;
-  mesh6.position.z = -500;
-  mesh6.scale.x = 0.1;
-  mesh6.scale.y = 0.1;
-  mesh6.scale.z = 0.1;
 };
+
 
 
 requestAnimationFrame(animate);

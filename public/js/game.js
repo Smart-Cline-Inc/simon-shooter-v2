@@ -14,16 +14,16 @@ function lightUpSphere(difficulty, click) {
 
 function chooseSphere(i, difficulty, click) {
   if (arr[i] === 1) {
-    material1.color.setHex(0xFF69B4)
+    material1.color.setHex(0xFFFFFF)
     getTone(-500)
   } else if (arr[i] === 2) {
-    material2.color.setHex(0xFF69B4)
+    material2.color.setHex(0xFFFFFF)
     getTone(-175)
   } else if (arr[i] === 3) {
-    material3.color.setHex(0xFF69B4)
+    material3.color.setHex(0xFFFFFF)
     getTone(175)
   } else if (arr[i] === 4) {
-    material4.color.setHex(0xFF69B4)
+    material4.color.setHex(0xFFFFFF)
     getTone(500)
   }
   setTimeout(revertBack, 375 - difficulty * 5)
