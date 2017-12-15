@@ -48,7 +48,7 @@ const sphere2 = new THREE.SphereGeometry(75, 100, 100);
 const sphere3 = new THREE.SphereGeometry(75, 100, 100);
 const sphere4 = new THREE.SphereGeometry(75, 100, 100);
 const shooter = new THREE.ConeGeometry(20, 100, 3);
-const shot = new THREE.IcosahedronGeometry(1, 0);
+const shot = new THREE.IcosahedronGeometry(1, 1);
 
 const material1 = new THREE.MeshLambertMaterial({
   color: 0x00BB00
@@ -65,9 +65,14 @@ const material4 = new THREE.MeshLambertMaterial({
 const material5 = new THREE.MeshLambertMaterial({
   color: 0xFF00FF
 });
-const material6 = new THREE.MeshLambertMaterial({
-  color: 0xFF55FF
-});
+var loader = new THREE.TextureLoader();
+var shotImage = loader.load('/js/shot.jpg')
+shotImage.wrapS = shotImage.wrapT = THREE.RepeatWrapping;
+shotImage.offset.set( 0, 0 );
+shotImage.repeat.set( 3, 2 );
+console.log('shot image');
+console.log(shotImage);
+const material6 = new THREE.MeshBasicMaterial({map: shotImage})
 
 const mesh1 = new THREE.Mesh(sphere1, material1);
 const mesh2 = new THREE.Mesh(sphere2, material2);
@@ -267,13 +272,13 @@ function shoot(intersects) {
   let posZ = intersects["0"].point.z;
   let target = {
     x: posX,
-    y: posY,
-    z: posZ
+    y: posY*0.9,
+    z: posZ*1.1
   };
   let size = {
-    x: 40,
-    y: 40,
-    z: 40
+    x: 60,
+    y: 60,
+    z: 60
   }
   var tween = new TWEEN.Tween(mesh6.position)
     .to(target, 275)
@@ -281,31 +286,34 @@ function shoot(intersects) {
   var tween2 = new TWEEN.Tween(mesh6.scale)
     .to(size, 275)
     .start()
-  var tween3 = new TWEEN.Tween(light2.position)
+  // var tween3 = new TWEEN.Tween(mesh6.rotation)
+  //   .to()
+  //   .start()
+  var tween4 = new TWEEN.Tween(light2.position)
     .to({
       x: posX*1.03,
       y: posY*1.02,
       z: (posZ + 100)
     }, 275)
     .start()
-  var tween4 = new TWEEN.Tween(light2)
+  var tween5 = new TWEEN.Tween(light2)
     .to({
       intensity: 1
     }, 275)
     .start()
     setTimeout(revertLight, 450)
-    setTimeout(revertShot, 340)
+    setTimeout(revertShot, 320)
 };
 
 function revertLight() {
-  var tween5 = new TWEEN.Tween(light2.position)
+  var tween6 = new TWEEN.Tween(light2.position)
     .to({
       x: 0,
       y: -1500,
       z: 1500
     }, 100)
     .start()
-  var tween6 = new TWEEN.Tween(light2)
+  var tween7 = new TWEEN.Tween(light2)
     .to({
       intensity: 0.75
     }, 100)
@@ -341,6 +349,9 @@ function animate() {
   TWEEN.update();
 	requestAnimationFrame(animate);
 	renderer.render(scene, camera);
+  mesh6.rotation.x -= 0.1
+  mesh6.rotation.y -= 0.25
+  mesh6.rotation.z -= 0.05
 };
 
 
