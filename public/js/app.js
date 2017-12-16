@@ -153,9 +153,9 @@ loader.load( 'js/ps2p.json', function ( font ) {
       if (event.code == 'Space') {
         scene.remove(mesh7)
         var mesh8 = new THREE.Mesh(simonShooter, material7);
-        mesh8.position.x = -40;
-        mesh8.position.y = -150;
-        mesh8.position.z = -850;
+        mesh8.position.x = -80;
+        mesh8.position.y = 0;
+        mesh8.position.z = -1400;
         mesh8.rotation.x = -06;
         mesh8.rotation.y = 1.55;
         mesh8.rotation.z = 0;
@@ -235,7 +235,7 @@ function onMouseDown(event) {
 };
 
 function light(intersects) {
-  let shine = intersects[0].object.material.color.setHex(0xFFFFFF);
+  let shine = intersects[0].object.material.color.setHex(0xFFc672);
   return shine
 }
 
@@ -311,9 +311,9 @@ function shoot(intersects) {
   var tween2 = new TWEEN.Tween(mesh6.scale)
     .to(size, 150)
     .start()
-  // var tween3 = new TWEEN.Tween(mesh6.rotation)
-  //   .to()
-  //   .start()
+  var tween3 = new TWEEN.Tween(mesh6.rotation)
+    .to()
+    .start()
   var tween4 = new TWEEN.Tween(light2.position)
     .to({
       x: posX*1.03,
@@ -327,15 +327,15 @@ function shoot(intersects) {
     }, 275)
     .start()
     setTimeout(revertLight, 450)
-    setTimeout(revertShot, 500)
-    setTimeout(explode, 150)
+    setTimeout(revertShot, 400)
+    setTimeout(explode, 250)
     function explode() {
       var tween6 = new TWEEN.Tween(mesh6.scale)
       .to({
         x: 200,
         y: 200,
         z: 200
-      }, 320)
+      }, 110)
       .start()
     }
 };
