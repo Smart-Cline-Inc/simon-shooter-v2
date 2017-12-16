@@ -64,8 +64,6 @@ var shotImage = loader.load('/js/shot.png')
 shotImage.wrapS = shotImage.wrapT = THREE.RepeatWrapping;
 shotImage.offset.set( 0, 0 );
 shotImage.repeat.set( 3, 2 );
-console.log('shot image');
-console.log(shotImage);
 const material6 = new THREE.MeshBasicMaterial({map: shotImage, transparent: true})
 
 const mesh1 = new THREE.Mesh(sphere1, material1);
@@ -144,21 +142,28 @@ loader.load( 'js/ps2p.json', function ( font ) {
   }
   function rotateTitle() {
     mesh7.rotation.y += 0.04
+    // console.log('rotation ' + mesh7.rotation.y);
     mesh7.scale.x += 0.003
+    // console.log('x scale ' + mesh7.scale.x );
     mesh7.scale.y += 0.003
+    // console.log('y scale ' + mesh7.scale.y);
     mesh7.scale.z += 0.003
+    // console.log('z scale ' + mesh7.scale.z );
     document.addEventListener('keyup', removeTitle, false);
     function removeTitle(event) {
       event.preventDefault();
       if (event.code == 'Space') {
         scene.remove(mesh7)
         var mesh8 = new THREE.Mesh(simonShooter, material7);
-        mesh8.position.x = -80;
-        mesh8.position.y = 0;
-        mesh8.position.z = -1400;
+        mesh8.position.x = -50;
+        mesh8.position.y = -150;
+        mesh8.position.z = -1300;
         mesh8.rotation.x = -06;
-        mesh8.rotation.y = 1.55;
+        mesh8.rotation.y = 7.9500000000000055;
         mesh8.rotation.z = 0;
+        mesh8.scale.x = 1.4799999999999827
+        mesh8.scale.y = 1.4799999999999827
+        mesh8.scale.z = 1.4799999999999827
 
         scene.add(mesh8);
       };
