@@ -8,7 +8,7 @@ const renderer = new THREE.WebGLRenderer({
 var width = window.innerWidth
 var height = width/16*9
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setClearColor(0x6D6D6D, 0.3);
+renderer.setClearColor(0x191919, 0.3);
 renderer.setSize(width, height);
 
 window.addEventListener('resize', () => {
