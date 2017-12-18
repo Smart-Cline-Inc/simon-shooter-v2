@@ -377,7 +377,7 @@ function postScore(num) {
       type: "POST",
       url: api,
       data: {
-        "game_name": "SimonShooter",
+        "game_name": "SimonsHooter",
         "player_name": gamerName,
         "score": num
       }

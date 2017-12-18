@@ -3,7 +3,7 @@ var api = "https://galvanize-leader-board.herokuapp.com/api/v1/leader-board/";
 var scores = document.getElementsByClassName('scores')[0];
 
 function getSimonShooterScores() {
-  fetch(api + 'SimonShooter')
+  fetch(api + 'SimonsHooter')
   .then(result => {
     return result.json();
   })
